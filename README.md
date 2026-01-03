@@ -16,7 +16,7 @@ Complemento para QGIS que permite la exploración, previsualización y carga de 
 - QGIS versión 3.22 o superior
 
 ## Uso principal
-Este complemento está orientado a profesionales del Servicio de Áreas Naturales Protegidas (SERNANP) y publico en general que trabajan en:
+Este complemento está orientado a profesionales del Servicio Nacional de Áreas Naturales Protegidas por el Estado (SERNANP) y publico en general que trabajan en:
 - Monitoreo ambiental
 - Gestión territorial
 - Conservación de ecosistemas
