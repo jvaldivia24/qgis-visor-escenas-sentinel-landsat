@@ -1,0 +1,19 @@
+[general]
+name=Visor de escenas Sentinel-2 y Landsat - SERNANP
+description=Explorador de escenas satelitales Sentinel-2 y Landsat 5, 7, 8 y 9. Permite buscar escenas por ubicación y rango de fechas, previsualizarlas dentro del complemento con combinaciones espectrales de color natural, infrarrojo y agricultura, y cargarlas al visor de QGIS. Además, permite generar los índices espectrales NDVI y NBR a partir de la escena seleccionada.
+version=0.1.0
+qgisMinimumVersion=3.22
+author=Joel Valdivia Favian
+email=teledeteccion.dde@sernanp.gob.pe
+category=Raster
+icon=icon.png
+experimental=true
+license=GPL-3.0
+
+about=Complemento desarrollado para apoyar el análisis y monitoreo ambiental mediante imágenes satelitales ópticas en QGIS, orientado a flujos de trabajo de conservación, gestión territorial y monitoreo de coberturas dentro de Áreas Naturales Protegidas del SERNANP.
+tags=sentinel-2, landsat, remote sensing, satellite imagery, NDVI, NBR, environmental monitoring, raster
+
+homepage=https://www.gob.pe/sernanp
+repository=https://github.com/jvaldivia24/qgis-visor-escenas-sentinel-landsat
+tracker=https://github.com/jvaldivia24/qgis-visor-escenas-sentinel-landsat/issues
+
