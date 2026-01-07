@@ -54,6 +54,11 @@ EARTH_SEARCH_STAC = "https://earth-search.aws.element84.com/v1"
 PLANETARY_STAC = "https://planetarycomputer.microsoft.com/api/stac/v1"
 
 
+# Landsat Collection 2 Level-2 Surface Reflectance scaling (matches GEE)
+LS_SR_MULT = 0.0000275
+LS_SR_ADD  = -0.2
+
+
 def stac_datetime_range(date_ini_qdate: QDate, date_fin_qdate: QDate) -> str:
     s = date_ini_qdate.toString("yyyy-MM-dd")
     e = date_fin_qdate.toString("yyyy-MM-dd")
@@ -765,10 +770,20 @@ class SceneBrowserDock(QDockWidget):
         b1 = ds1.GetRasterBand(1).ReadAsArray().astype("float32")
         b2 = ds2m.GetRasterBand(1).ReadAsArray().astype("float32")
 
+        # ✅ Apply reflectance scaling ONLY for Landsat C2 L2
+        # Sentinel-2 assets from EarthSearch are already reflectance-like; do not scale them.
+        if prefix.lower() == "ls":
+            b1 = b1 * LS_SR_MULT + LS_SR_ADD
+            b2 = b2 * LS_SR_MULT + LS_SR_ADD
+
         denom = (b1 + b2)
+
         with np.errstate(divide="ignore", invalid="ignore"):
             idx = (b1 - b2) / denom
+
+        # Clean non-finite and (optional) hard clip to [-1, 1] to match expected index domain
         idx[~np.isfinite(idx)] = -9999.0
+        idx = np.where(idx == -9999.0, -9999.0, np.clip(idx, -1.0, 1.0)).astype("float32")
 
         out_idx = os.path.join(out_dir, f"{prefix}_{uid}_{mode}.tif")
         drv = gdal.GetDriverByName("GTiff")
